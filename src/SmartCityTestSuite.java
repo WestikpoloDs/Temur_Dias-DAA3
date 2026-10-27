@@ -15,10 +15,7 @@ import mst.PrimMST;
 import shortestpath.DijkstraShortestPath;
 import shortestpath.DijkstraShortestPath.ShortestPathResult;
 
-/**
- * Comprehensive verification suite covering all 7 required graph scenarios
- * and all 5 correctness assertions specified in Section 6 of Assignment 3.
- */
+
 public class SmartCityTestSuite {
 
     private static int passedTests = 0;
@@ -56,9 +53,6 @@ public class SmartCityTestSuite {
         }
     }
 
-    /**
-     * Test 1: Small graphs (undirected MST, DAG topological sort, SCC, and Dijkstra).
-     */
     private static void test1_SmallGraphs() {
         System.out.println("\n[Test Group 1] Small Graphs (5 districts)");
         Graph roadGraph = new Graph(5, false);
@@ -73,7 +67,7 @@ public class SmartCityTestSuite {
         MSTResult kruskal = KruskalMST.findMST(roadGraph);
         MSTResult prim = PrimMST.findMST(roadGraph);
 
-        // MST edges: (1,2,1), (0,2,2), (3,4,2), (1,3,5) -> weight = 10.0
+
         check("Small graph: Kruskal detects connected graph", kruskal.isConnected());
         check("Small graph: Prim detects connected graph", prim.isConnected());
         check("Small graph: Kruskal and Prim return exact same MST weight (10.0)",
@@ -81,23 +75,21 @@ public class SmartCityTestSuite {
                 Math.abs(kruskal.getTotalWeight() - prim.getTotalWeight()) < 1e-6);
 
         ShortestPathResult sp = DijkstraShortestPath.computeShortestPaths(roadGraph, 0);
-        // 0 -> 2 (2.0) -> 1 (3.0) -> 3 (8.0) -> 4 (10.0)
+
         check("Small graph: Dijkstra shortest distance 0 -> 4 is 10.0",
                 Math.abs(sp.getDistanceTo(4) - 10.0) < 1e-6);
         check("Small graph: Dijkstra shortest path 0 -> 4 is [0, 2, 1, 3, 4]",
                 sp.getPathTo(4).equals(List.of(0, 2, 1, 3, 4)));
     }
 
-    /**
-     * Test 2: Disconnected graphs (MST connectivity detection and DSU component tracking).
-     */
+
     private static void test2_DisconnectedGraphs() {
         System.out.println("\n[Test Group 2] Disconnected Graphs");
         Graph disconnected = new Graph(6, false);
-        // Component A: {0, 1, 2}
+   
         disconnected.addEdge(0, 1, 3.0);
         disconnected.addEdge(1, 2, 4.0);
-        // Component B: {3, 4, 5}
+ 
         disconnected.addEdge(3, 4, 2.0);
         disconnected.addEdge(4, 5, 6.0);
 
@@ -115,22 +107,16 @@ public class SmartCityTestSuite {
                 dsu.getNumComponents() == 2 && dsu.getComponentSize(0) == 3 && dsu.getComponentSize(3) == 3);
     }
 
-    /**
-     * Test 3: Graphs containing cycles (Topological sort cycle detection & SCC partition verification).
-     */
     private static void test3_GraphsContainingCycles() {
         System.out.println("\n[Test Group 3] Graphs Containing Cycles (Topological Sort & SCC)");
         Graph cyclic = new Graph(6, true);
-        // SCC 1: 0 -> 1 -> 2 -> 0
+  
         cyclic.addEdge(0, 1, 1.0);
         cyclic.addEdge(1, 2, 1.0);
         cyclic.addEdge(2, 0, 1.0);
-        // Bridge: 2 -> 3
         cyclic.addEdge(2, 3, 1.0);
-        // SCC 2: 3 -> 4 -> 3
         cyclic.addEdge(3, 4, 1.0);
         cyclic.addEdge(4, 3, 1.0);
-        // SCC 3: 4 -> 5 (singleton 5)
         cyclic.addEdge(4, 5, 1.0);
 
         TopologicalResult topo = TopologicalSort.sortKahn(cyclic);
@@ -147,9 +133,6 @@ public class SmartCityTestSuite {
                 verifyExactSCCPartition(cyclic.getNumVertices(), kosaraju));
     }
 
-    /**
-     * Test 4: Graphs with multiple valid MSTs (e.g., 4-cycle with identical edge weights).
-     */
     private static void test4_MultipleValidMSTs() {
         System.out.println("\n[Test Group 4] Graphs with Multiple Valid MSTs");
         Graph square = new Graph(4, false);
@@ -157,7 +140,7 @@ public class SmartCityTestSuite {
         square.addEdge(1, 2, 5.0);
         square.addEdge(2, 3, 5.0);
         square.addEdge(3, 0, 5.0);
-        square.addEdge(0, 2, 5.0); // diagonal also weight 5.0
+        square.addEdge(0, 2, 5.0); 
 
         MSTResult kruskal = KruskalMST.findMST(square);
         MSTResult prim = PrimMST.findMST(square);
@@ -169,15 +152,12 @@ public class SmartCityTestSuite {
                 Math.abs(prim.getTotalWeight() - 15.0) < 1e-6);
     }
 
-    /**
-     * Test 5: Graphs with unreachable vertices (Dijkstra shortest paths).
-     */
+
     private static void test5_UnreachableVertices() {
         System.out.println("\n[Test Group 5] Graphs with Unreachable Vertices");
         Graph directed = new Graph(5, true);
         directed.addEdge(0, 1, 3.0);
         directed.addEdge(1, 2, 4.0);
-        // Vertex 3 and 4 only have edges between themselves or pointing back to 0
         directed.addEdge(3, 4, 2.0);
         directed.addEdge(4, 0, 1.0);
 
@@ -189,9 +169,7 @@ public class SmartCityTestSuite {
                 !sp.isReachable(4) && Double.isInfinite(sp.getDistanceTo(4)) && sp.getPathTo(4).isEmpty());
     }
 
-    /**
-     * Test 6: Graphs containing duplicate edge weights.
-     */
+
     private static void test6_DuplicateEdgeWeights() {
         System.out.println("\n[Test Group 6] Graphs Containing Duplicate Edge Weights");
         Graph dupGraph = new Graph(6, false);
@@ -206,20 +184,18 @@ public class SmartCityTestSuite {
         MSTResult kruskal = KruskalMST.findMST(dupGraph);
         MSTResult prim = PrimMST.findMST(dupGraph);
 
-        // 4 edges of weight 2.5 + 1 edge of weight 7.0 = 17.0
+       
         check("Duplicate edge weights: Kruskal and Prim both return MST weight 17.0",
                 Math.abs(kruskal.getTotalWeight() - 17.0) < 1e-6 &&
                 Math.abs(prim.getTotalWeight() - 17.0) < 1e-6);
 
         ShortestPathResult sp = DijkstraShortestPath.computeShortestPaths(dupGraph, 0);
-        // 0 -> 1 (2.5) -> 4 (5.0) -> 5 (12.0), whereas direct 0 -> 5 is 7.0
+    
         check("Duplicate edge weights: Dijkstra finds optimal shortest path 0 -> 5 of weight 7.0",
                 Math.abs(sp.getDistanceTo(5) - 7.0) < 1e-6);
     }
 
-    /**
-     * Test 7: Graphs with a single vertex (edge case V = 1, E = 0).
-     */
+   
     private static void test7_SingleVertexGraphs() {
         System.out.println("\n[Test Group 7] Graphs with a Single Vertex (V = 1, E = 0)");
         Graph singleUndirected = new Graph(1, false);
@@ -245,9 +221,7 @@ public class SmartCityTestSuite {
                 Math.abs(sp.getDistanceTo(0)) < 1e-6 && sp.getPathTo(0).equals(List.of(0)));
     }
 
-    /**
-     * Test 8: Randomized cross-validation across Small, Medium, and Large graphs.
-     */
+  
     private static void test8_RandomizedCrossValidation() {
         System.out.println("\n[Test Group 8] Cross-Validation on Generated Small/Medium/Large Graphs");
         int[][] configs = {{10, 30}, {100, 500}, {1000, 5000}};

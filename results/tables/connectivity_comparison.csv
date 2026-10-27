@@ -1,4 +1,4 @@
 Graph,V,E,SCC_Count,Tarjan_Time_us,Tarjan_VertexVisits,Tarjan_EdgeExams,Tarjan_StackOps,Tarjan_TotalOps,Kosaraju_Time_us,Kosaraju_VertexVisits,Kosaraju_EdgeExams,Kosaraju_StackOps,Kosaraju_TotalOps,TopoDAG_Time_us,TopoDAG_Ops,TopoDAG_IsDAG,TopoCyclic_Time_us,TopoCyclic_Ops,TopoCyclic_HasCycle
-Small,10,30,2,13.51,10,30,20,60,36.91,20,90,20,130,33.14,70,true,8.94,30,true
-Medium,100,500,4,194.73,100,500,200,800,467.41,200,1500,200,1900,219.79,1100,true,87.03,510,true
-Large,1000,5000,18,1938.70,1000,5000,2000,8000,4218.59,2000,15000,2000,19000,1738.41,11000,true,2454.77,5056,true
+Small,10,30,2,5.92,10,30,20,60,19.42,20,90,20,130,10.40,70,true,4.92,30,true
+Medium,100,500,4,61.56,100,500,200,800,181.88,200,1500,200,1900,111.38,1100,true,44.76,510,true
+Large,1000,5000,18,831.10,1000,5000,2000,8000,2011.34,2000,15000,2000,19000,759.76,11000,true,452.30,5056,true

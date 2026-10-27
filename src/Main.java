@@ -15,15 +15,7 @@ import mst.PrimMST;
 import shortestpath.DijkstraShortestPath;
 import shortestpath.DijkstraShortestPath.ShortestPathResult;
 
-/**
- * Main entry point and experimental benchmark runner for Assignment 3:
- * Smart City Infrastructure and Route Planning.
- *
- * Evaluates all required algorithms across Small (10V, 30E), Medium (100V, 500E),
- * and Large (1000V, 5000E) reproducible graphs, repeating each experiment 5 times,
- * measuring average execution time with System.nanoTime(), counting operations,
- * and exporting structured tables to results/tables/.
- */
+
 public class Main {
 
     private static final long FIXED_SEED = 202603L;
@@ -61,9 +53,7 @@ public class Main {
         System.out.println("\nAll benchmark tables saved to results/tables/.");
     }
 
-    /**
-     * Benchmarks Task 1: Kruskal (Optimized DSU), Kruskal (Naive DSU), and Prim (PriorityQueue).
-     */
+
     private static void runMSTAndDSUBenchmarks() throws IOException {
         System.out.println("--- Task 1: Minimum Spanning Tree (Kruskal vs. Prim & DSU Optimization) ---");
         System.out.printf("%-8s %-6s %-6s | %-14s %-14s %-12s %-12s | %-14s %-12s %-12s%n",
@@ -84,7 +74,6 @@ public class Main {
                 int e = EDGE_COUNTS[i];
                 Graph graph = GraphGenerator.generateConnectedUndirectedGraph(v, e, FIXED_SEED + i);
 
-                // Warm-up JVM
                 for (int w = 0; w < WARMUP_RUNS; w++) {
                     KruskalMST.findMST(graph, true);
                     KruskalMST.findMST(graph, false);
@@ -138,9 +127,7 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Benchmarks Task 2: SCC (Tarjan & Kosaraju) and Topological Sort (on DAGs and Cyclic Graphs).
-     */
+
     private static void runConnectivityBenchmarks() throws IOException {
         System.out.println("--- Task 2: Connectivity, SCC (Tarjan & Kosaraju) & Topological Sort ---");
         System.out.printf("%-8s %-6s %-6s | %-12s %-12s %-10s | %-12s %-12s %-12s%n",
@@ -221,9 +208,7 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Benchmarks Task 3: Dijkstra's Single-Source Shortest Path algorithm across graph sizes.
-     */
+
     private static void runDijkstraBenchmarks() throws IOException {
         System.out.println("--- Task 3: Dijkstra's Shortest Path Algorithm ---");
         System.out.printf("%-8s %-6s %-6s | %-14s %-12s %-12s %-12s %-12s%n",
@@ -242,7 +227,7 @@ public class Main {
                 int v = VERTEX_COUNTS[i];
                 int e = EDGE_COUNTS[i];
 
-                // Use connected undirected road network for route planning benchmark
+
                 Graph roadNetwork = GraphGenerator.generateConnectedUndirectedGraph(v, e, FIXED_SEED + 300 + i);
 
                 for (int w = 0; w < WARMUP_RUNS; w++) {
@@ -286,15 +271,12 @@ public class Main {
         }
     }
 
-    /**
-     * Generates fine-grained scaling data (varying V and varying E independently)
-     * in addition to the 3 primary configurations for plotting.
-     */
+
     private static void runScalingSweepForPlots() throws IOException {
         try (PrintWriter csv = new PrintWriter(new FileWriter("results/tables/scaling_sweep.csv"))) {
             csv.println("SweepType,V,E,Kruskal_us,Prim_us,Tarjan_us,Kosaraju_us,TopoDAG_us,Dijkstra_us");
 
-            // 1. Primary 3 configurations (Small: 10/30, Medium: 100/500, Large: 1000/5000) + intermediate points
+      
             int[][] points = {
                 {10, 30},
                 {50, 200},

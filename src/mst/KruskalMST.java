@@ -6,9 +6,7 @@ import graph.Graph;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Implementation of Kruskal's Minimum Spanning Tree algorithm using Disjoint Set Union (DSU).
- */
+
 public class KruskalMST {
 
     public static MSTResult findMST(Graph graph) {

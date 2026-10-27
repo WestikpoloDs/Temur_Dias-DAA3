@@ -8,10 +8,7 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 
-/**
- * Topological ordering and cycle detection for directed graphs (Task 2).
- * Supports both Kahn's BFS (in-degree queue) algorithm and 3-color DFS post-order reversal.
- */
+
 public class TopologicalSort {
 
     public static class TopologicalResult {
@@ -65,10 +62,7 @@ public class TopologicalSort {
         }
     }
 
-    /**
-     * Computes a topological ordering using Kahn's in-degree algorithm.
-     * Detects cycles if fewer than V vertices can be scheduled.
-     */
+
     public static TopologicalResult sortKahn(Graph graph) {
         if (!graph.isDirected()) {
             throw new IllegalArgumentException("Topological sort requires a directed graph.");
@@ -118,9 +112,7 @@ public class TopologicalSort {
         return new TopologicalResult(isDAG, order, elapsedNanos, vertexVisits, edgeExaminations);
     }
 
-    /**
-     * Verifies whether a given vertex ordering is a valid topological sort of the directed graph.
-     */
+
     public static boolean isValidTopologicalOrder(Graph graph, List<Integer> order) {
         int n = graph.getNumVertices();
         if (order == null || order.size() != n) {

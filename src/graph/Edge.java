@@ -2,9 +2,7 @@ package graph;
 
 import java.util.Objects;
 
-/**
- * Represents a weighted connection (road or infrastructure link) between two city districts.
- */
+
 public class Edge implements Comparable<Edge> {
     private final int source;
     private final int destination;

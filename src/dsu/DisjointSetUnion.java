@@ -1,10 +1,6 @@
 package dsu;
 
-/**
- * Disjoint Set Union (Union-Find) data structure.
- * Supports both optimized mode (path compression + union by rank & size) and naive mode (for benchmarking comparison).
- * Tracks operation counts for experimental analysis.
- */
+
 public class DisjointSetUnion {
     private final int[] parent;
     private final int[] rank;
@@ -12,7 +8,6 @@ public class DisjointSetUnion {
     private int numComponents;
     private final boolean useOptimizations;
 
-    // Instrumentation counters
     private long findCalls;
     private long parentTraversals;
     private long unionCalls;
@@ -39,10 +34,6 @@ public class DisjointSetUnion {
         }
     }
 
-    /**
-     * Finds the representative of the set containing x.
-     * Uses path compression when optimizations are enabled.
-     */
     public int find(int x) {
         validate(x);
         findCalls++;
@@ -71,12 +62,7 @@ public class DisjointSetUnion {
         return curr;
     }
 
-    /**
-     * Unites the sets containing u and v.
-     * Uses union by rank (and tracks component size) when optimizations are enabled.
-     *
-     * @return true if u and v were in different sets and were merged; false if already in the same set.
-     */
+
     public boolean union(int u, int v) {
         unionCalls++;
         int rootU = find(u);

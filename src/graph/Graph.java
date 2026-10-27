@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Adjacency-list and edge-list representation of a smart city's infrastructure network.
- * Supports both undirected graphs (road construction MST) and directed graphs (one-way routes / service dependencies).
- */
+
 public class Graph {
     private final int numVertices;
     private final boolean directed;
@@ -73,9 +70,7 @@ public class Graph {
         return Collections.unmodifiableList(edges);
     }
 
-    /**
-     * Creates the transpose (reversed edges) of a directed graph, used in Kosaraju's algorithm.
-     */
+
     public Graph getTranspose() {
         if (!directed) {
             throw new IllegalStateException("Transpose is only applicable to directed graphs.");

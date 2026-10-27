@@ -4,10 +4,7 @@ import graph.Edge;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Encapsulates the output of a Minimum Spanning Tree algorithm (Kruskal's or Prim's),
- * including connectivity detection, total weight, selected edges, and performance metrics.
- */
+
 public class MSTResult {
     private final String algorithmName;
     private final boolean connected;

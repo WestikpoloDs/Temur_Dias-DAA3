@@ -9,10 +9,7 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 
-/**
- * Strongly Connected Components (SCC) identification for directed graphs (Task 2).
- * Implements both Tarjan's single-pass low-link algorithm and Kosaraju's two-pass transpose algorithm.
- */
+
 public class StronglyConnectedComponents {
 
     public static class SCCResult {
@@ -78,9 +75,7 @@ public class StronglyConnectedComponents {
         }
     }
 
-    /**
-     * Finds all Strongly Connected Components using Tarjan's algorithm in O(V + E) time.
-     */
+
     public static SCCResult findSCCTarjan(Graph graph) {
         if (!graph.isDirected()) {
             throw new IllegalArgumentException("SCC requires a directed graph.");
@@ -99,7 +94,6 @@ public class StronglyConnectedComponents {
         Deque<Integer> stack = new ArrayDeque<>();
         List<List<Integer>> components = new ArrayList<>();
 
-        // Counters: [0]=timer, [1]=vertexVisits, [2]=edgeExaminations, [3]=stackOperations
         long[] stats = new long[]{0, 0, 0, 0};
 
         for (int i = 0; i < n; i++) {
@@ -131,13 +125,13 @@ public class StronglyConnectedComponents {
             int[] componentId,
             long[] stats) {
         disc[u] = low[u] = (int) (stats[0]++);
-        stats[1]++; // vertex visit
+        stats[1]++; 
         stack.push(u);
         onStack[u] = true;
-        stats[3]++; // stack push
+        stats[3]++; 
 
         for (Edge e : graph.getNeighbors(u)) {
-            stats[2]++; // edge examination
+            stats[2]++; 
             int v = e.getDestination();
             if (disc[v] == -1) {
                 tarjanDFS(v, graph, disc, low, onStack, stack, components, componentId, stats);
@@ -165,9 +159,6 @@ public class StronglyConnectedComponents {
         }
     }
 
-    /**
-     * Finds all Strongly Connected Components using Kosaraju's two-pass DFS algorithm in O(V + E) time.
-     */
     public static SCCResult findSCCKosaraju(Graph graph) {
         if (!graph.isDirected()) {
             throw new IllegalArgumentException("SCC requires a directed graph.");
@@ -178,21 +169,17 @@ public class StronglyConnectedComponents {
 
         boolean[] visited = new boolean[n];
         Deque<Integer> finishStack = new ArrayDeque<>();
-        // stats: [0]=vertexVisits, [1]=edgeExaminations, [2]=stackOperations
         long[] stats = new long[]{0, 0, 0};
 
-        // Pass 1: Compute finishing times on original graph
         for (int i = 0; i < n; i++) {
             if (!visited[i]) {
                 kosarajuPass1(i, graph, visited, finishStack, stats);
             }
         }
 
-        // Transpose graph (counts E edge examinations during reversal)
         Graph transposed = graph.getTranspose();
         stats[1] += graph.getNumEdges();
 
-        // Pass 2: DFS on transposed graph in decreasing finish order
         Arrays.fill(visited, false);
         List<List<Integer>> components = new ArrayList<>();
         int[] componentId = new int[n];

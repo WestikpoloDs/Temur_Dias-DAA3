@@ -8,11 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
 
-/**
- * Implementation of Dijkstra's single-source shortest path algorithm using a binary heap PriorityQueue (Task 3).
- * Validates non-negative edge weights, handles unreachable vertices, reconstructs shortest paths,
- * and instruments operation counts.
- */
+
 public class DijkstraShortestPath {
 
     public static class ShortestPathResult {
@@ -60,10 +56,7 @@ public class DijkstraShortestPath {
             return Double.isFinite(distances[target]);
         }
 
-        /**
-         * Reconstructs the shortest path from sourceVertex to target.
-         * Returns an empty list if target is unreachable.
-         */
+
         public List<Integer> getPathTo(int target) {
             if (!isReachable(target)) {
                 return Collections.emptyList();
@@ -111,11 +104,7 @@ public class DijkstraShortestPath {
         }
     }
 
-    /**
-     * Computes shortest paths from sourceVertex to all reachable vertices using Dijkstra's algorithm.
-     *
-     * @throws IllegalArgumentException if any edge has a negative weight.
-     */
+
     public static ShortestPathResult computeShortestPaths(Graph graph, int sourceVertex) {
         int n = graph.getNumVertices();
         if (sourceVertex < 0 || sourceVertex >= n) {

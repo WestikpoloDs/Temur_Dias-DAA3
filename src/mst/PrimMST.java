@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 
-/**
- * Implementation of Prim's Minimum Spanning Tree algorithm using a binary heap PriorityQueue.
- */
+
 public class PrimMST {
 
     public static MSTResult findMST(Graph graph) {
