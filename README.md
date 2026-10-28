@@ -182,17 +182,6 @@ To ensure 100% reproducibility across runs, `GraphGenerator` uses a fixed random
   2. Every edge $(u, v)$ in every generated DAG satisfies $\text{pos}(u) < \text{pos}(v)$ in the returned topological order.
   3. Every vertex $v \in [0, V-1]$ belongs to **exactly one** SCC in both Tarjan and Kosaraju outputs.
 
-### How to Compile and Run
-
-```bash
-# Compile all Java packages into out/
-mkdir -p out
-javac -d out src/graph/*.java src/dsu/*.java src/mst/*.java src/connectivity/*.java src/shortestpath/*.java src/*.java
-
-# Run automated test suite + 5-repetition experimental benchmarks
-java -cp out Main
-```
-
 ## 8. Conclusion
 
 Our implementation and experimental benchmarks across Small ($10V, 30E$), Medium ($100V, 500E$), and Large ($1000V, 5000E$) smart city networks demonstrate clear algorithmic trade-offs for urban infrastructure planning:
